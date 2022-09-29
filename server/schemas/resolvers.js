@@ -17,7 +17,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, args) => {
+    addUser: async (parent, args, context) => {
       const user = await User.create(args);
       const token = signToken(user);
 
@@ -41,6 +41,7 @@ const resolvers = {
       return { token, user };
     },
     saveBook: async (parent, { input }, context) => {
+      // only logged in users can save books, hence why checking for context user is done here
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
