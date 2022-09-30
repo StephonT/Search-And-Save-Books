@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
@@ -12,16 +12,20 @@ import Navbar from './components/Navbar';
 //createHttpLink allows us to control how the Apollo Client makes a request. Think of it like middleware for the outbound network requests.
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
-// Establishing the connection to the back-end server's /graphql endpoint.
-const httpLink = createHttpLink({
-  uri: '/graphql',
+// establish apollo client
+const client = new ApolloClient({
+  request: operation => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri: '/graphql'
 });
 
-//use the ApolloClient() constructor to instantiate the Apollo Client instance and create the connection to the API endpoint
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
-});
 
 function App() {
   return (
@@ -29,11 +33,11 @@ function App() {
       <Router>
         <>
           <Navbar />
-          <Routes>
+          <Switch>
             <Route exact path='/' component={SearchBooks} />
             <Route exact path='/saved' component={SavedBooks} />
             <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-          </Routes>
+          </Switch>
         </>
       </Router>
     </ApolloProvider>

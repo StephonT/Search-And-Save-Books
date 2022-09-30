@@ -25,6 +25,7 @@ const SignupForm = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
     
+        //Taking the token and setting it to localStorage
         try {
           const { data } = await addUser({
             variables: {...userFormData}
