@@ -21,5 +21,10 @@
   "homepage": "https://github.com/StephonT/Search-And-Save-Books#readme",
   "devDependencies": {
     "concurrently": "^7.4.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.1",
+    "jwt-decode": "^3.1.2",
+    "react-bootstrap": "^2.5.0"
   }
 }
