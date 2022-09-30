@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import gql from 'graphql-tag';
 
 //mutation to login user
 export const LOGIN_USER = gql`

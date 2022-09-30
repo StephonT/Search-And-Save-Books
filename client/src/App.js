@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
+
 
 //integrating Apollo into the front end of the application
 //ApolloProvider is a special type of React component that we'll use to provide data to all of the other components.
